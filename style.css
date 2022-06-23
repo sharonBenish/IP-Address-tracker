@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+:root{
+    font-size: 13px;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+}
+
+body{
+    height: 100vh;
+    color:hsl(0, 0%, 17%);
+}
+
+.top{
+    background-image: url("./images/pattern-bg.png");
+    background-size: cover;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px 40px;
+    position: relative;
+    height: 40vh;
+}
+
+form{
+    width:100%;
+    position: relative;
+}
+
+form  input{
+    outline: none;
+    border: none;
+    font-size: 18px;
+    width:100%;
+    padding: 15px 25px;
+    border-radius: 1rem;
+}
+
+form  input::placeholder{
+    font-size: 0.8rem;
+}
+
+form button {
+    background-color:  hsl(0, 0%, 17%);
+    position: absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    width:20%;
+    border: none;
+    border-radius: 0 1rem 1rem 0;
+}
+
+h1{
+    color:#fff;
+    padding: 20px 0;
+}
+
+.tracker{
+    background-color: #fff;
+    padding:20px;
+    text-align: center;
+    border-radius: 1rem;
+    position:absolute;
+    left:40px;
+    right:40px;
+    top:100%;
+    z-index: 10000;
+    transform: translateY(-50%);
+    margin-top: 20px;
+}
+
+.tracker h2{
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color:hsl(0, 0%, 59%);
+    font-weight: 500;
+}
+
+.tracker > div:not(:last-of-type) {
+    margin-bottom: 20px;
+}
+
+.tracker > div > p {
+    margin-top: 5px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+#map{
+    width:100%;
+    height:60vh;
+}
+
+@media (min-width:400px){
+    .top{
+        padding-top: 40px;
+    }
+    .tracker{
+        margin-top: 0;
+    }
+}
+
+@media (min-width:825px){
+    .top{
+        padding-top: 15px;
+    }
+
+    form{
+        width:50%;
+    }
+
+    .top{
+        height: 30vh;
+    }
+
+    .tracker{
+        display: flex;
+        justify-content: center;
+        text-align: left;
+        padding:35px 20px;
+    }
+
+    .tracker > div {
+        padding-left:15px;
+        padding-right:40px;
+    }
+
+    .tracker > div:not(:last-of-type){
+        border-right: 1px solid hsl(0, 0%, 59%);
+    }
+
+    .tracker > div:not(:last-of-type) {
+        margin-bottom: 0;
+    }
+    
+    .tracker > div > p {
+        margin-top: 5px;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    #map{
+        height:70vh;
+    }
+}
+
+@media (min-width:950px){
+    .tracker{
+        justify-content: space-between;
+    }
+}
+
+@media (min-width:1025px){
+    form input::placeholder{
+        font-size: 15px;
+    }
+    .tracker{
+        justify-content: start;
+    }
+    .tracker > div {
+        padding-left:15px;
+        padding-right:80px;
+    }
+
+    .tracker>div> p{
+        font-size: 25px;
+    }
+}
+
+@media (min-width:1440px){
+    form input{
+        padding: 30px 35px;
+    }
+
+    form input::placeholder{
+        font-size: 18px;
+    }
+
+    .tracker > div {
+        padding-left:40px;
+        padding-right:130px;
+    }
+
+    .tracker> div>h2{
+        font-size: 15px;
+    }
+    .tracker>div> p{
+        font-size: 30px;
+    }
+}
+
+@media (min-width){
+    .tracker{
+        justify-content: space-evenly;
+    }
+}
