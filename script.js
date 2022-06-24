@@ -4,6 +4,9 @@ const ipAddress = document.getElementById("ip-address");
 const locationDiv = document.getElementById("location");
 const timezone = document.getElementById("timezone");
 const isp = document.getElementById("isp");
+const placeHolder = "Search for any IP address or domain";
+const errorMsg ="Input valid IP address";
+const errorIcon =document.getElementById("error-icon")
 let ipKey='';
 var map = L.map('map');
 getLocation();
@@ -14,9 +17,15 @@ form.addEventListener('submit', (e)=>{
     ipKey = form.querySelector("input").value;
     console.log(ipKey)
     getLocation();
+});
+
+input.addEventListener('focus', (e)=>{
+    e.target.classList.remove('error');
+    e.target.placeholder=placeHolder;
+    errorIcon.style.display="none"
 })
 
-function showMap(lat,lng){
+function showMap(lat,lng, city){
     map.setView([+ lat, + lng], 15);
     L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=v187E0AsRp0S7KRGvoij', {
     attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
@@ -26,24 +35,41 @@ function showMap(lat,lng){
     iconUrl: './images/icon-location.svg',
     iconSize: [30, 35],
     iconAnchor: null,
-    popupAnchor: [-3, -76],
+    popupAnchor: [0, 0],
     });
 
     L.marker([+ lat, + lng], {icon: myIcon}).addTo(map)
-        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+        .bindPopup(city)
         .openPopup();
 
 }
 
 async function getLocation(){
-    const res = await fetch ("https://geo.ipify.org/api/v2/country,city?apiKey=at_xvTscA4Pm0SAHH8GDLY7uc7KGI6Df&ipAddress="+ipKey);
-    const json = await res.json();
-    ipAddress.innerHTML = json.ip;
-    locationDiv.innerHTML = `${json.location.city}, ${json.location.country}`;
-    timezone.innerHTML = `USP ${json.location.timezone}`;
-    isp.innerHTML = json.isp;
+    console.log("getting location");
+   try{
+        const res = await fetch ("https://geo.ipify.org/api/v2/country,city?apiKey=at_xvTscA4Pm0SAHH8GDLY7uc7KGI6Df&ipAddress="+ipKey);
 
-    showMap(json.location.lat, json.location.lng);
+        if (res.ok){
+            console.log("ok")
+            const json = await res.json();
+            console.log(json);
+            ipAddress.innerHTML = json.ip;
+            locationDiv.innerHTML = `${json.location.city}, ${json.location.country}`;
+            timezone.innerHTML = `USP ${json.location.timezone}`;
+            isp.innerHTML = json.isp;
+        
+            showMap(json.location.lat, json.location.lng, json.location.city);
+        }else{
+            throw "error"
+        }
+   
+   }catch(e){
+        input.classList.add("error");
+        input.placeholder = errorMsg;
+        input.value="";
+        errorIcon.style.display="block";
+    }
+
 }
 
 
